@@ -1,4 +1,4 @@
-// swift-tools-version: 5.1
+// swift-tools-version: 5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -21,10 +21,10 @@ let package = Package(
         .target(
             name: "EasyProgressBar",
             dependencies: [],
-            exclude: ["Example", "Source"]),
+            exclude: []),
         .testTarget(
             name: "EasyProgressBarTests",
             dependencies: ["EasyProgressBar"],
-            exclude: ["Example", "Source"]),
+            exclude: []),
     ]
 )
