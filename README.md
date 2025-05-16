@@ -38,10 +38,10 @@ Or add to your `Package.swift`:
 
 ## 🧩 Components Overview
 
-- `HorizontalProgressBar` (SwiftUI) / `HorizontalProgressView` (UIKit)
-- `VerticalProgressBar` (SwiftUI) / `VerticalProgressView` (UIKit)
-- `CircularProgressBar` (SwiftUI) / `CircularProgressView` (UIKit)
-- `ArcProgressBar` (SwiftUI) / `ArcProgressView` (UIKit)
+- `HorizontalProgressBar` (SwiftUI)  / `HorizontalProgressView` (UIKit)
+- `VerticalProgressBar`   (SwiftUI)  / `VerticalProgressView`   (UIKit)
+- `CircularProgressBar`   (SwiftUI)  / `CircularProgressView`   (UIKit)
+- `ArcProgressBar`        (SwiftUI)  / `ArcProgressView`        (UIKit)
 
 ---
 
@@ -168,12 +168,15 @@ view.addSubview(verticalBar)
 | `backgroundColor`     | Background color of the track                | All                  |
 | `lineWidth`           | Thickness of the progress bar                | All                  |
 | `lineCap`             | Shape of bar end: `.butt`, `.round`, `.square` | All               |
-| `foregroundGradient`  | Gradient for progress fill                   | Horizontal, Vertical, Circular, Arc |
+| `foregroundGradient`  | Gradient for progress fill                   | ALL                  |
 | `startAngle`/`endAngle` | For arc-based rendering                    | Arc only             |
 | `animationType`       | `.none`, `.simple`, `.forwardBackward`       | All                  |
 | `animationDuration`   | Duration of the animation                    | All                  |
 
 ---
+
+## 🤝 Contributing
+Feel free to submit pull requests or open issues to suggest features and report bugs.
 
 ## 📄 License
 
