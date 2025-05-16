@@ -180,4 +180,4 @@ Feel free to submit pull requests or open issues to suggest features and report 
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE). 
+This project is licensed under the [MIT License](LICENSE.txt). 
