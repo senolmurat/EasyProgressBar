@@ -1,4 +1,4 @@
-// swift-tools-version: 5.1
+// swift-tools-version: 5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,25 +6,23 @@ import PackageDescription
 let package = Package(
     name: "EasyProgressBar",
     platforms: [
-            .iOS(.v12),
+            .iOS(.v13),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "EasyProgressBar",
             targets: ["EasyProgressBar"]),
+        .library(
+            name: "EasyProgressBarSwiftUI",
+            targets: ["EasyProgressBarSwiftUI"]),
         
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "EasyProgressBar",
-            dependencies: [],
-            exclude: ["Example", "Source"]),
-        .testTarget(
-            name: "EasyProgressBarTests",
-            dependencies: ["EasyProgressBar"],
-            exclude: ["Example", "Source"]),
+        .target(name: "EasyProgressBar",dependencies: []),
+        .target(name: "EasyProgressBarSwiftUI",dependencies: []),
+        .testTarget(name: "EasyProgressBarTests",dependencies: ["EasyProgressBar"])
     ]
 )
