@@ -26,7 +26,7 @@
 import SwiftUI
 
 @available(iOS 14.0, *)
-public struct CircularProgressBar: View {
+public struct HorizontalProgressBar: View {
     @Binding var progress: CGFloat // 0.0 to 1.0
     var barColor: Color = .blue
     var backgroundColor: Color = .gray.opacity(0.2)
@@ -58,23 +58,30 @@ public struct CircularProgressBar: View {
     }
 
     public var body: some View {
-        ZStack {
-            Circle()
-                .stroke(backgroundColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: lineCap))
-            if let gradient = foregroundGradient {
-                Circle()
-                    .trim(from: 0, to: animatedProgress)
-                    .stroke(AngularGradient(gradient: Gradient(colors: gradient), center: .center), style: StrokeStyle(lineWidth: lineWidth, lineCap: lineCap))
-                    .rotationEffect(.degrees(-90))
-            } else {
-                Circle()
-                    .trim(from: 0, to: animatedProgress)
-                    .stroke(barColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: lineCap))
-                    .rotationEffect(.degrees(-90))
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Capsule()
+                    .fill(backgroundColor)
+                    .frame(height: lineWidth)
+                if let gradient = foregroundGradient {
+                    Capsule()
+                        .fill(LinearGradient(gradient: Gradient(colors: gradient), startPoint: .leading, endPoint: .trailing))
+                        .frame(width: geometry.size.width * animatedProgress, height: lineWidth)
+                } else {
+                    Capsule()
+                        .fill(barColor)
+                        .frame(width: geometry.size.width * animatedProgress, height: lineWidth)
+                }
+            }
+            .frame(height: lineWidth)
+            .onAppear {
+                setupAnimation()
+            }
+            .onChange(of: progress) { _ in
+                setupAnimation()
             }
         }
-        .onAppear { setupAnimation() }
-        .onChange(of: progress) { _ in setupAnimation() }
+        .frame(height: lineWidth)
     }
 
     private func setupAnimation() {
@@ -103,7 +110,7 @@ public struct CircularProgressBar: View {
 }
 
 @available(iOS 14.0, *)
-public extension CircularProgressBar {
+public extension HorizontalProgressBar {
     func barColor(_ color: Color) -> Self {
         var copy = self
         copy.barColor = color
@@ -138,6 +145,12 @@ public extension CircularProgressBar {
         var copy = self
         copy.foregroundGradient = colors
         return copy
+    }
+    func barShadow(color: Color = .black, radius: CGFloat = 4, x: CGFloat = 0, y: CGFloat = 2) -> some View {
+        self.shadow(color: color, radius: radius, x: x, y: y)
+    }
+    func barGlow(color: Color = .blue, radius: CGFloat = 10) -> some View {
+        self.shadow(color: color, radius: radius)
     }
 }
 #endif

@@ -1,6 +1,6 @@
 # EasyProgressBar
 
-**EasyProgressBar** is a flexible and lightweight Swift/SwiftUI package for beautiful, animated progress bars in your iOS apps. It supports horizontal, vertical, circular, and arc-based indicators, with full customization and native support for both SwiftUI and UIKit.
+**EasyProgressBar** is a flexible and lightweight SwiftUI package for beautiful, animated progress bars in your iOS apps. It supports horizontal, vertical, circular, and arc-based indicators, with full customization and native support for SwiftUI.
 
 ---
 
@@ -10,10 +10,11 @@
 - Solid and gradient fills
 - Customizable line width and line caps (`butt`, `round`, `square`)
 - Forward-backward and standard animations
+- Shadow and glow effects
 - Modular: use only what you need
-- Native **SwiftUI** and **UIKit** support
+- Native **SwiftUI** support
 - Simple, intuitive API
-- Fully customizable with `@IBDesignable` (UIKit) and SwiftUI modifiers
+- Fully customizable with SwiftUI modifiers
 
 ---
 
@@ -24,24 +25,15 @@
 1. In Xcode, go to **File > Add Packages...**
 2. Enter the repository URL:
    ```
-   https://github.com/yourusername/EasyProgressBar.git
+   https://github.com/senolmurat/EasyProgressBar.git
    ```
 3. Add the package to your target.
 
 Or add to your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/yourusername/EasyProgressBar.git", from: "1.0.0")
+.package(url: "https://github.com/senolmurat/EasyProgressBar.git", from: "1.0.0")
 ```
-
----
-
-## 🧩 Components Overview
-
-- `HorizontalProgressBar` (SwiftUI)  / `HorizontalProgressView` (UIKit)
-- `VerticalProgressBar`   (SwiftUI)  / `VerticalProgressView`   (UIKit)
-- `CircularProgressBar`   (SwiftUI)  / `CircularProgressView`   (UIKit)
-- `ArcProgressBar`        (SwiftUI)  / `ArcProgressView`        (UIKit)
 
 ---
 
@@ -66,6 +58,8 @@ struct ContentView: View {
                 .animationType(.simple)
                 .animationDuration(1.0)
                 .foregroundGradient([.blue, .cyan])
+                .barShadow(color: .black.opacity(0.3), radius: 6, x: 0, y: 2)
+                .barGlow(color: .blue, radius: 12)
                 .padding()
 
             // Circular
@@ -97,51 +91,6 @@ struct ContentView: View {
 }
 ```
 
-### UIKit
-
-```swift
-import EasyProgressBar
-
-// Horizontal
-let horizontalBar = HorizontalProgressView()
-horizontalBar.frame = CGRect(x: 40, y: 100, width: 300, height: 20)
-horizontalBar.progress = 0.7
-horizontalBar.barColor = .systemBlue
-horizontalBar.lineWidth = 10
-horizontalBar.animationType = .simple
-horizontalBar.animationDuration = 1.0
-view.addSubview(horizontalBar)
-
-// Circular
-let circularBar = CircularProgressView()
-circularBar.frame = CGRect(x: 40, y: 140, width: 100, height: 100)
-circularBar.progress = 0.5
-circularBar.gradientColors = [.systemPurple, .systemPink]
-circularBar.lineWidth = 12
-circularBar.animationType = .forwardBackward
-view.addSubview(circularBar)
-
-// Arc
-let arcBar = ArcProgressView()
-arcBar.frame = CGRect(x: 40, y: 260, width: 160, height: 80)
-arcBar.progress = 0.6
-arcBar.barColor = .systemOrange
-arcBar.startAngle = 180
-arcBar.endAngle = 360
-arcBar.lineWidth = 14
-arcBar.animationType = .simple
-view.addSubview(arcBar)
-
-// Vertical
-let verticalBar = VerticalProgressView()
-verticalBar.frame = CGRect(x: 220, y: 100, width: 40, height: 200)
-verticalBar.progress = 0.8
-verticalBar.gradientColors = [.systemPurple, .systemPink, .systemOrange]
-verticalBar.lineWidth = 24
-verticalBar.animationType = .simple
-view.addSubview(verticalBar)
-```
-
 ---
 
 ## 🔗 Integration Flow
@@ -150,12 +99,6 @@ view.addSubview(verticalBar)
 1. Import `EasyProgressBar` in your view.
 2. Add the desired progress bar view, binding to a `@State` progress variable.
 3. Customize with modifiers for color, width, animation, etc.
-
-### UIKit
-1. Import `EasyProgressBar` in your view controller.
-2. Create and configure the progress bar view.
-3. Add it to your view hierarchy.
-4. Update progress with `.setProgress(_:animated:)` as needed.
 
 ---
 
@@ -172,6 +115,10 @@ view.addSubview(verticalBar)
 | `startAngle`/`endAngle` | For arc-based rendering                    | Arc only             |
 | `animationType`       | `.none`, `.simple`, `.forwardBackward`       | All                  |
 | `animationDuration`   | Duration of the animation                    | All                  |
+| `shadowColor`         | Shadow color for the progress bar            | All                  |
+| `shadowRadius`        | Shadow blur radius                           | All                  |
+| `glowColor`           | Glow color for the progress bar              | All                  |
+| `glowRadius`          | Glow blur radius                             | All                  |
 
 ---
 
