@@ -10,6 +10,7 @@
 - Solid and gradient fills
 - Customizable line width and line caps (`butt`, `round`, `square`)
 - Forward-backward and standard animations
+- Shadow and glow effects
 - Modular: use only what you need
 - Native **SwiftUI** and **UIKit** support
 - Simple, intuitive API
@@ -66,6 +67,8 @@ struct ContentView: View {
                 .animationType(.simple)
                 .animationDuration(1.0)
                 .foregroundGradient([.blue, .cyan])
+                .barShadow(color: .black.opacity(0.3), radius: 6, x: 0, y: 2)
+                .barGlow(color: .blue, radius: 12)
                 .padding()
 
             // Circular
@@ -110,6 +113,12 @@ horizontalBar.barColor = .systemBlue
 horizontalBar.lineWidth = 10
 horizontalBar.animationType = .simple
 horizontalBar.animationDuration = 1.0
+horizontalBar.shadowColor = .black
+horizontalBar.shadowRadius = 6
+horizontalBar.shadowOpacity = 0.3
+horizontalBar.shadowOffset = CGSize(width: 0, height: 2)
+horizontalBar.glowColor = .systemBlue
+horizontalBar.glowRadius = 12
 view.addSubview(horizontalBar)
 
 // Circular
@@ -172,6 +181,12 @@ view.addSubview(verticalBar)
 | `startAngle`/`endAngle` | For arc-based rendering                    | Arc only             |
 | `animationType`       | `.none`, `.simple`, `.forwardBackward`       | All                  |
 | `animationDuration`   | Duration of the animation                    | All                  |
+| `shadowColor`         | Shadow color for the progress bar            | All                  |
+| `shadowRadius`        | Shadow blur radius                           | All                  |
+| `shadowOpacity`       | Shadow opacity (UIKit)                       | All (UIKit)          |
+| `shadowOffset`        | Shadow offset (UIKit)                        | All (UIKit)          |
+| `glowColor`           | Glow color for the progress bar              | All                  |
+| `glowRadius`          | Glow blur radius                             | All                  |
 
 ---
 

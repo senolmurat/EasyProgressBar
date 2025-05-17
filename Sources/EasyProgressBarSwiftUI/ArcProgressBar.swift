@@ -151,6 +151,12 @@ public extension ArcProgressBar {
         copy.foregroundGradient = colors
         return copy
     }
+    func barShadow(color: Color = .black, radius: CGFloat = 4, x: CGFloat = 0, y: CGFloat = 2) -> some View {
+        self.shadow(color: color, radius: radius, x: x, y: y)
+    }
+    func barGlow(color: Color = .blue, radius: CGFloat = 10) -> some View {
+        self.shadow(color: color, radius: radius)
+    }
 }
 
 // ArcShape for drawing the arc
