@@ -1,11 +1,11 @@
 //
 //  Shared.swift
-//  EasyProgressBar
+//  EasyProgressBarSwiftUI
 //
 //  Created by Murat ŞENOL on 16.05.2025.
 //
 
-@objc public enum ProgressBarAnimationTypeUIKit: Int {
+public enum ProgressBarAnimationType {
     case none
     case simple
     case forwardBackward
