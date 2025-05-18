@@ -1,19 +1,19 @@
 import SwiftUI
 
-struct CircularProgressBarExample: View {
+struct VerticalProgressBarExample: View {
     @State private var progress: CGFloat = 0.4
 
     var body: some View {
         VStack(spacing: 40) {
-            Text("Simple Animated Circular Progress Bar")
+            Text("Simple Animated Vertical Progress Bar")
                 .font(.headline)
-            CircularProgressBar(progress: $progress)
-                .barColor(.purple)
+            VerticalProgressBar(progress: $progress)
+                .barColor(.blue)
                 .backgroundColor(.gray.opacity(0.2))
-                .lineWidth(14)
+                .lineWidth(24)
                 .animationType(.simple)
                 .animationDuration(1.0)
-                .frame(width: 120, height: 120)
+                .frame(width: 40, height: 200)
 
             Button("Increase Progress") {
                 withAnimation {
@@ -22,32 +22,32 @@ struct CircularProgressBarExample: View {
             }
             .buttonStyle(.borderedProminent)
 
-            Text("Forward-Backward Animated Circular Progress Bar")
+            Text("Forward-Backward Animated Vertical Progress Bar")
                 .font(.headline)
-            CircularProgressBar(progress: $progress)
+            VerticalProgressBar(progress: $progress)
                 .barColor(.green)
                 .backgroundColor(.gray.opacity(0.1))
-                .lineWidth(10)
+                .lineWidth(20)
                 .animationType(.forwardBackward)
                 .animationDuration(1.5)
-                .frame(width: 100, height: 100)
+                .frame(width: 36, height: 180)
 
-            Text("Gradient Circular Progress Bar")
+            Text("Gradient Vertical Progress Bar")
                 .font(.headline)
-            CircularProgressBar(progress: $progress)
-                .foregroundGradient([.blue, .cyan, .mint, .purple])
+            VerticalProgressBar(progress: $progress)
+                .foregroundGradient([.purple, .pink, .orange])
                 .backgroundColor(.gray.opacity(0.15))
-                .lineWidth(16)
+                .lineWidth(28)
                 .animationType(.simple)
                 .animationDuration(1.2)
-                .frame(width: 140, height: 140)
+                .frame(width: 44, height: 220)
         }
         .padding()
     }
 }
 
-struct CircularProgressBarExample_Previews: PreviewProvider {
+struct VerticalProgressBarExample_Previews: PreviewProvider {
     static var previews: some View {
-        CircularProgressBarExample()
+        VerticalProgressBarExample()
     }
 } 
