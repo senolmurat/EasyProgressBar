@@ -2,6 +2,11 @@
 
 **EasyProgressBar** is a flexible and lightweight SwiftUI package for beautiful, animated progress bars in your iOS apps. It supports horizontal, vertical, circular, and arc-based indicators, with full customization and native support for SwiftUI.
 
+
+![Horizontal-Vertical](https://github.com/senolmurat/EasyProgressBar/blob/main/assets/horizontal_vertical.gif)
+![Circular](https://github.com/senolmurat/EasyProgressBar/blob/main/assets/circular.gif)
+![Arc](https://github.com/senolmurat/EasyProgressBar/blob/main/assets/arc.gif)
+
 ---
 
 ## 🚀 Features
