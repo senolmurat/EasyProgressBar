@@ -41,57 +41,53 @@ Or add to your `Package.swift`:
 
 ## 🛠 Usage Examples
 
-### SwiftUI
+### SwiftUI - 🧩 Unified Progress Bar Usage
+
+You can use the `EasyProgressBar` view to create any supported progress bar style by simply changing the `barStyle` parameter:
 
 ```swift
-import EasyProgressBar
 import SwiftUI
+import EasyProgressBar
 
 struct ContentView: View {
-    @State private var progress: CGFloat = 0.6
+    @State private var progress: CGFloat = 0.7
+    @State private var style: ProgressBarStyle = .horizontal
 
     var body: some View {
         VStack(spacing: 32) {
-            // Horizontal
-            HorizontalProgressBar(progress: $progress)
-                .barColor(.blue)
-                .backgroundColor(.gray.opacity(0.2))
-                .lineWidth(10)
-                .animationType(.simple)
-                .animationDuration(1.0)
-                .foregroundGradient([.blue, .cyan])
-                .barShadow(color: .black.opacity(0.3), radius: 6, x: 0, y: 2)
-                .barGlow(color: .blue, radius: 12)
+            Picker("Style", selection: $style) {
+                Text("Horizontal").tag(ProgressBarStyle.horizontal)
+                Text("Vertical").tag(ProgressBarStyle.vertical)
+                Text("Circular").tag(ProgressBarStyle.circular)
+                Text("Arc").tag(ProgressBarStyle.arc)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+
+            EasyProgressBar(
+                progress: $progress,
+                barStyle: style,
+                barColor: .blue,
+                backgroundColor: .gray.opacity(0.2),
+                lineWidth: 12,
+                animationType: .simple,
+                animationDuration: 1.0,
+                foregroundGradient: [.blue, .purple],
+                startAngle: .degrees(180), // Only used for .arc
+                endAngle: .degrees(360)    // Only used for .arc
+            )
+            .frame(height: style == .horizontal ? 24 : 200)
+            .frame(width: style == .vertical ? 24 : 200)
+
+            Slider(value: $progress, in: 0...1)
                 .padding()
-
-            // Circular
-            CircularProgressBar(progress: $progress)
-                .lineWidth(12)
-                .foregroundGradient([.purple, .pink])
-                .animationType(.forwardBackward)
-                .frame(width: 100, height: 100)
-
-            // Arc
-            ArcProgressBar(progress: $progress)
-                .barColor(.orange)
-                .backgroundColor(.gray.opacity(0.2))
-                .lineWidth(14)
-                .startAngle(.degrees(180))
-                .endAngle(.degrees(360))
-                .animationType(.simple)
-                .frame(width: 160, height: 80)
-
-            // Vertical
-            VerticalProgressBar(progress: $progress)
-                .foregroundGradient([.purple, .pink, .orange])
-                .backgroundColor(.gray.opacity(0.15))
-                .lineWidth(24)
-                .animationType(.simple)
-                .frame(width: 40, height: 200)
         }
     }
 }
 ```
+
+- Change the `barStyle` to switch between horizontal, vertical, circular, and arc progress bars.
+- All customization options are available through the unified initializer.
 
 ---
 

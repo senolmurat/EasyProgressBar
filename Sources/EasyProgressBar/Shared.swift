@@ -10,3 +10,10 @@ public enum ProgressBarAnimationType {
     case simple
     case forwardBackward
 }
+
+public enum ProgressBarStyle {
+    case horizontal
+    case vertical
+    case circular
+    case arc
+}
