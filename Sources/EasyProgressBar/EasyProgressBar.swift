@@ -10,8 +10,9 @@ import SwiftUI
 
 /// A unified progress bar view supporting multiple styles (horizontal, vertical, circular, arc).
 @available(iOS 14.0, *)
-public struct EasyProgressBar: View {
+public struct EasyProgressBar<Content: View>: View {
     
+    var content: (() -> Content)?
     @Binding var progress: CGFloat
     private(set) var barStyle: EasyProgressBarStyle = .horizontal
     // Common
@@ -21,8 +22,11 @@ public struct EasyProgressBar: View {
     private(set) var lineCap: CGLineCap = .round
     private(set) var animationType: ProgressBarAnimationType = .simple(duration: 1)
     private(set) var foregroundGradient: [Color]? = nil
+    
     // Arc-specific
+    /// Start angle of the arc
     private(set) var startAngle: Angle = .degrees(180)
+    /// End angle of the arc
     private(set) var endAngle: Angle = .degrees(360)
     
     public init(progress: Binding<CGFloat>) {
@@ -76,6 +80,14 @@ public struct EasyProgressBar: View {
                 )
             }
         }
+    }
+}
+
+@available(iOS 14.0, *)
+extension EasyProgressBar where Content == Text {
+    public init(progress: Binding<CGFloat>, @ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+        self._progress = progress
     }
 }
 
