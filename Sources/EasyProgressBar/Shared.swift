@@ -7,6 +7,13 @@
 
 public enum ProgressBarAnimationType {
     case none
-    case simple
-    case forwardBackward
+    case simple(duration: Double)
+    case forwardBackward(duration: Double)
+}
+
+public enum EasyProgressBarStyle {
+    case horizontal
+    case vertical
+    case circular
+    case arc
 }
