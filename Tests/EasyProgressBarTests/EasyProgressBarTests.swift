@@ -11,7 +11,8 @@ final class EasyProgressBarTests: XCTestCase {
     }
 
     func testHorizontalProgressViewInitialization() {
-        let bar = HorizontalProgressBar(progress: .constant(0))
+        let bar = EasyProgressBar(progress: .constant(0))
+            .barStyle(.horizontal)
         XCTAssertEqual(bar.progress, 0.0)
         XCTAssertEqual(bar.barColor, .blue)
         XCTAssertEqual(bar.backgroundColor, .gray.opacity(0.2))
@@ -19,7 +20,8 @@ final class EasyProgressBarTests: XCTestCase {
     }
 
     func testVerticalProgressViewInitialization() {
-        let bar = VerticalProgressBar(progress: .constant(0))
+        let bar = EasyProgressBar(progress: .constant(0))
+            .barStyle(.vertical)
         XCTAssertEqual(bar.progress, 0.0)
         XCTAssertEqual(bar.barColor, .blue)
         XCTAssertEqual(bar.backgroundColor, .gray.opacity(0.2))
@@ -27,7 +29,8 @@ final class EasyProgressBarTests: XCTestCase {
     }
 
     func testCircularProgressViewInitialization() {
-        let bar = CircularProgressBar(progress: .constant(0))
+        let bar = EasyProgressBar(progress: .constant(0))
+            .barStyle(.circular)
         XCTAssertEqual(bar.progress, 0.0)
         XCTAssertEqual(bar.barColor, .blue)
         XCTAssertEqual(bar.backgroundColor, .gray.opacity(0.2))
@@ -35,7 +38,8 @@ final class EasyProgressBarTests: XCTestCase {
     }
 
     func testArcProgressViewInitialization() {
-        let bar = ArcProgressBar(progress: .constant(0))
+        let bar = EasyProgressBar(progress: .constant(0))
+            .barStyle(.arc)
         XCTAssertEqual(bar.progress, 0.0)
         XCTAssertEqual(bar.barColor, .blue)
         XCTAssertEqual(bar.backgroundColor, .gray.opacity(0.2))
@@ -43,14 +47,14 @@ final class EasyProgressBarTests: XCTestCase {
     }
 
     func testSetProgress() {
-        let bar = HorizontalProgressBar(progress: .constant(0))
+        let bar = EasyProgressBar(progress: .constant(0))
         bar.progress = 0.7
         XCTAssertEqual(bar.progress, 0.7)
     }
 
     func testBarColorChange() {
-        var bar = HorizontalProgressBar(progress: .constant(0))
-        bar.barColor = .red
+        var bar = EasyProgressBar(progress: .constant(0))
+            .barColor(.red)
         XCTAssertEqual(bar.barColor, .red)
     }
 }

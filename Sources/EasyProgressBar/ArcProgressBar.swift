@@ -26,14 +26,13 @@
 import SwiftUI
 
 @available(iOS 14.0, *)
-public struct ArcProgressBar: View {
+struct ArcProgressBar: View {
     @Binding var progress: CGFloat // 0.0 to 1.0
     var barColor: Color = .blue
     var backgroundColor: Color = .gray.opacity(0.2)
     var lineWidth: CGFloat = 8
     var lineCap: CGLineCap = .round
-    var animationType: ProgressBarAnimationType = .simple
-    var animationDuration: Double = 1.0
+    var animationType: EasyProgressBarAnimationType = .simple(duration: 1)
     var startAngle: Angle = .degrees(180)
     var endAngle: Angle = .degrees(360)
     var foregroundGradient: [Color]? = nil
@@ -46,8 +45,7 @@ public struct ArcProgressBar: View {
                 backgroundColor: Color = .gray.opacity(0.2),
                 lineWidth: CGFloat = 8,
                 lineCap: CGLineCap = .round,
-                animationType: ProgressBarAnimationType = .simple,
-                animationDuration: Double = 1.0,
+                animationType: EasyProgressBarAnimationType = .simple(duration: 1),
                 startAngle: Angle = .degrees(180),
                 endAngle: Angle = .degrees(360),
                 foregroundGradient: [Color]? = nil) {
@@ -57,7 +55,6 @@ public struct ArcProgressBar: View {
         self.lineWidth = lineWidth
         self.lineCap = lineCap
         self.animationType = animationType
-        self.animationDuration = animationDuration
         self.startAngle = startAngle
         self.endAngle = endAngle
         self.foregroundGradient = foregroundGradient
@@ -83,79 +80,24 @@ public struct ArcProgressBar: View {
         switch animationType {
         case .none:
             animatedProgress = progress
-        case .simple:
-            withAnimation(.easeInOut(duration: animationDuration)) {
+        case let .simple(duration):
+            withAnimation(.easeInOut(duration: duration)) {
                 animatedProgress = progress
             }
-        case .forwardBackward:
-            animateForwardBackward()
+        case let .forwardBackward(duration):
+            animateForwardBackward(duration)
         }
     }
 
-    private func animateForwardBackward() {
+    private func animateForwardBackward(_ duration: Double) {
         let target: CGFloat = isForward ? 1.0 : 0.0
-        withAnimation(.linear(duration: animationDuration)) {
+        withAnimation(.linear(duration: duration)) {
             animatedProgress = target
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             isForward.toggle()
-            animateForwardBackward()
+            animateForwardBackward(duration)
         }
-    }
-}
-
-@available(iOS 14.0, *)
-public extension ArcProgressBar {
-    func barColor(_ color: Color) -> Self {
-        var copy = self
-        copy.barColor = color
-        return copy
-    }
-    func backgroundColor(_ color: Color) -> Self {
-        var copy = self
-        copy.backgroundColor = color
-        return copy
-    }
-    func lineWidth(_ width: CGFloat) -> Self {
-        var copy = self
-        copy.lineWidth = width
-        return copy
-    }
-    func lineCap(_ cap: CGLineCap) -> Self {
-        var copy = self
-        copy.lineCap = cap
-        return copy
-    }
-    func animationType(_ type: ProgressBarAnimationType) -> Self {
-        var copy = self
-        copy.animationType = type
-        return copy
-    }
-    func animationDuration(_ duration: Double) -> Self {
-        var copy = self
-        copy.animationDuration = duration
-        return copy
-    }
-    func startAngle(_ angle: Angle) -> Self {
-        var copy = self
-        copy.startAngle = angle
-        return copy
-    }
-    func endAngle(_ angle: Angle) -> Self {
-        var copy = self
-        copy.endAngle = angle
-        return copy
-    }
-    func foregroundGradient(_ colors: [Color]) -> Self {
-        var copy = self
-        copy.foregroundGradient = colors
-        return copy
-    }
-    func barShadow(color: Color = .black, radius: CGFloat = 4, x: CGFloat = 0, y: CGFloat = 2) -> some View {
-        self.shadow(color: color, radius: radius, x: x, y: y)
-    }
-    func barGlow(color: Color = .blue, radius: CGFloat = 10) -> some View {
-        self.shadow(color: color, radius: radius)
     }
 }
 

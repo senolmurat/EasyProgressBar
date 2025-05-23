@@ -12,8 +12,8 @@
 - Solid and gradient fills
 - Customizable line width and line caps (`butt`, `round`, `square`)
 - Forward-backward and standard animations
+- Label & Content Support
 - Shadow and glow effects
-- Modular: use only what you need
 - Native **SwiftUI** support
 - Simple, intuitive API
 - Fully customizable with SwiftUI modifiers
@@ -52,41 +52,42 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 32) {
-            // Horizontal
-            HorizontalProgressBar(progress: $progress)
-                .barColor(.blue)
-                .backgroundColor(.gray.opacity(0.2))
-                .lineWidth(10)
-                .animationType(.simple)
-                .animationDuration(1.0)
-                .foregroundGradient([.blue, .cyan])
-                .barShadow(color: .black.opacity(0.3), radius: 6, x: 0, y: 2)
-                .barGlow(color: .blue, radius: 12)
+            // Minimal horizontal
+            EasyProgressBar(progress: $progress)
+                .barStyle(.horizontal)
                 .padding()
 
-            // Circular
-            CircularProgressBar(progress: $progress)
+            // Fully customized circular
+            EasyProgressBar(progress: $progress, content: {
+                Text("test")
+            })
+                .barStyle(.circular)
+                .barColor(.purple)
+                .backColor(.gray.opacity(0.2))
                 .lineWidth(12)
-                .foregroundGradient([.purple, .pink])
-                .animationType(.forwardBackward)
+                .barGradientColors([.purple, .pink, .purple])
+                .animationType(.forwardBackward(duration: 1.5))
+                .shadow(color: .pink, radius: 12)
                 .frame(width: 100, height: 100)
 
             // Arc
-            ArcProgressBar(progress: $progress)
+            EasyProgressBar(progress: $progress)
+                .barStyle(.arc)
                 .barColor(.orange)
-                .backgroundColor(.gray.opacity(0.2))
+                .backColor(.gray.opacity(0.2))
                 .lineWidth(14)
                 .startAngle(.degrees(180))
                 .endAngle(.degrees(360))
-                .animationType(.simple)
+                .animationType(.simple(duration: 1.0))
                 .frame(width: 160, height: 80)
 
-            // Vertical
-            VerticalProgressBar(progress: $progress)
-                .foregroundGradient([.purple, .pink, .orange])
-                .backgroundColor(.gray.opacity(0.15))
+            // Vertical with gradient
+            EasyProgressBar(progress: $progress)
+                .barStyle(.vertical)
+                .barGradientColors([.purple, .pink, .orange])
+                .backColor(.gray.opacity(0.15))
                 .lineWidth(24)
-                .animationType(.simple)
+                .animationType(.simple(duration: 1.0))
                 .frame(width: 40, height: 200)
         }
     }
@@ -109,18 +110,14 @@ struct ContentView: View {
 | Property              | Description                                  | Available In         |
 |-----------------------|----------------------------------------------|----------------------|
 | `progress`            | Current progress (0.0 to 1.0)                | All                  |
+| `barStyle`            | `.horizontal`, `.verticle`, `.circle`, `.arc`| All                  |
 | `barColor`            | Solid color for the progress bar             | All                  |
-| `backgroundColor`     | Background color of the track                | All                  |
+| `backColor`           | Background color of the track                | All                  |
 | `lineWidth`           | Thickness of the progress bar                | All                  |
 | `lineCap`             | Shape of bar end: `.butt`, `.round`, `.square` | All               |
-| `foregroundGradient`  | Gradient for progress fill                   | ALL                  |
-| `startAngle`/`endAngle` | For arc-based rendering                    | Arc only             |
+| `barGradientColors`   | Gradient for progress fill                   | ALL                  |
 | `animationType`       | `.none`, `.simple`, `.forwardBackward`       | All                  |
-| `animationDuration`   | Duration of the animation                    | All                  |
-| `shadowColor`         | Shadow color for the progress bar            | All                  |
-| `shadowRadius`        | Shadow blur radius                           | All                  |
-| `glowColor`           | Glow color for the progress bar              | All                  |
-| `glowRadius`          | Glow blur radius                             | All                  |
+| `startAngle`/`endAngle` | For arc-based rendering                    | Arc only             |
 
 ---
 
