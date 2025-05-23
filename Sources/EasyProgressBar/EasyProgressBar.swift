@@ -12,7 +12,7 @@ import SwiftUI
 @available(iOS 14.0, *)
 public struct EasyProgressBar<Content: View>: View {
     
-    var content: (() -> Content)?
+    let content: Content
     @Binding var progress: CGFloat
     private(set) var barStyle: EasyProgressBarStyle = .horizontal
     // Common
@@ -29,65 +29,84 @@ public struct EasyProgressBar<Content: View>: View {
     /// End angle of the arc
     private(set) var endAngle: Angle = .degrees(360)
     
-    public init(progress: Binding<CGFloat>) {
+    public init(progress: Binding<CGFloat>, @ViewBuilder content: @escaping () -> Content) {
         self._progress = progress
+        self.content = content()
     }
     
     public var body: some View {
         Group {
             switch barStyle {
             case .horizontal:
-                HorizontalProgressBar(
-                    progress: $progress,
-                    barColor: barColor,
-                    backgroundColor: backgroundColor,
-                    lineWidth: lineWidth,
-                    lineCap: lineCap,
-                    animationType: animationType,
-                    foregroundGradient: foregroundGradient
-                )
+                VStack(spacing: 8) {
+                    HStack {
+                        content
+                        Spacer()
+                    }
+                    HorizontalProgressBar(
+                        progress: $progress,
+                        barColor: barColor,
+                        backgroundColor: backgroundColor,
+                        lineWidth: lineWidth,
+                        lineCap: lineCap,
+                        animationType: animationType,
+                        foregroundGradient: foregroundGradient
+                    )
+                }
             case .vertical:
-                VerticalProgressBar(
-                    progress: $progress,
-                    barColor: barColor,
-                    backgroundColor: backgroundColor,
-                    lineWidth: lineWidth,
-                    lineCap: lineCap,
-                    animationType: animationType,
-                    foregroundGradient: foregroundGradient
-                )
+                VStack(spacing: 8) {
+                    HStack {
+                        Spacer()
+                        VerticalProgressBar(
+                            progress: $progress,
+                            barColor: barColor,
+                            backgroundColor: backgroundColor,
+                            lineWidth: lineWidth,
+                            lineCap: lineCap,
+                            animationType: animationType,
+                            foregroundGradient: foregroundGradient
+                        )
+                        Spacer()
+                    }
+                    content
+                }
             case .circular:
-                CircularProgressBar(
-                    progress: $progress,
-                    barColor: barColor,
-                    backgroundColor: backgroundColor,
-                    lineWidth: lineWidth,
-                    lineCap: lineCap,
-                    animationType: animationType,
-                    foregroundGradient: foregroundGradient
-                )
+                ZStack {
+                    content
+                    CircularProgressBar(
+                        progress: $progress,
+                        barColor: barColor,
+                        backgroundColor: backgroundColor,
+                        lineWidth: lineWidth,
+                        lineCap: lineCap,
+                        animationType: animationType,
+                        foregroundGradient: foregroundGradient
+                    )
+                }
             case .arc:
-                ArcProgressBar(
-                    progress: $progress,
-                    barColor: barColor,
-                    backgroundColor: backgroundColor,
-                    lineWidth: lineWidth,
-                    lineCap: lineCap,
-                    animationType: animationType,
-                    startAngle: startAngle,
-                    endAngle: endAngle,
-                    foregroundGradient: foregroundGradient
-                )
+                ZStack {
+                    content
+                    ArcProgressBar(
+                        progress: $progress,
+                        barColor: barColor,
+                        backgroundColor: backgroundColor,
+                        lineWidth: lineWidth,
+                        lineCap: lineCap,
+                        animationType: animationType,
+                        startAngle: startAngle,
+                        endAngle: endAngle,
+                        foregroundGradient: foregroundGradient
+                    )
+                }
             }
         }
     }
 }
 
 @available(iOS 14.0, *)
-extension EasyProgressBar where Content == Text {
-    public init(progress: Binding<CGFloat>, @ViewBuilder content: @escaping () -> Content) {
-        self.content = content
-        self._progress = progress
+public extension EasyProgressBar where Content == EmptyView {
+    init(progress: Binding<CGFloat>) {
+        self.init(progress: progress, content: {EmptyView()})
     }
 }
 
@@ -109,7 +128,7 @@ extension EasyProgressBar {
         then({ $0.backgroundColor = backColor })
     }
     
-    public func lineWidth(_ progress: CGFloat) -> EasyProgressBar {
+    public func lineWidth(_ lineWidth: CGFloat) -> EasyProgressBar {
         then({ $0.lineWidth = lineWidth })
     }
     
@@ -131,13 +150,6 @@ extension EasyProgressBar {
     
     public func endAngle(_ endAngle: Angle) -> EasyProgressBar {
         then({ $0.endAngle = endAngle })
-    }
-    
-    func barShadow(color: Color = .black, radius: CGFloat = 4, x: CGFloat = 0, y: CGFloat = 2) -> EasyProgressBar {
-        self.shadow(color: color, radius: radius, x: x, y: y) as! EasyProgressBar
-    }
-    func barGlow(color: Color = .blue, radius: CGFloat = 10) -> EasyProgressBar {
-        self.shadow(color: color, radius: radius) as! EasyProgressBar
     }
 }
 
