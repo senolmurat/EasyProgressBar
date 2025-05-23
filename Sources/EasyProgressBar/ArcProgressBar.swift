@@ -32,7 +32,7 @@ struct ArcProgressBar: View {
     var backgroundColor: Color = .gray.opacity(0.2)
     var lineWidth: CGFloat = 8
     var lineCap: CGLineCap = .round
-    var animationType: ProgressBarAnimationType = .simple(duration: 1)
+    var animationType: EasyProgressBarAnimationType = .simple(duration: 1)
     var startAngle: Angle = .degrees(180)
     var endAngle: Angle = .degrees(360)
     var foregroundGradient: [Color]? = nil
@@ -45,7 +45,7 @@ struct ArcProgressBar: View {
                 backgroundColor: Color = .gray.opacity(0.2),
                 lineWidth: CGFloat = 8,
                 lineCap: CGLineCap = .round,
-                animationType: ProgressBarAnimationType = .simple(duration: 1),
+                animationType: EasyProgressBarAnimationType = .simple(duration: 1),
                 startAngle: Angle = .degrees(180),
                 endAngle: Angle = .degrees(360),
                 foregroundGradient: [Color]? = nil) {

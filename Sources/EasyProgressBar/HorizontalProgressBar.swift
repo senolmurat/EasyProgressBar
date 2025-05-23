@@ -32,7 +32,7 @@ struct HorizontalProgressBar: View {
     var backgroundColor: Color = .gray.opacity(0.2)
     var lineWidth: CGFloat = 8
     var lineCap: CGLineCap = .round
-    var animationType: ProgressBarAnimationType = .simple(duration: 1)
+    var animationType: EasyProgressBarAnimationType = .simple(duration: 1)
     var foregroundGradient: [Color]? = nil
 
     @State private var animatedProgress: CGFloat = 0.0
@@ -43,7 +43,7 @@ struct HorizontalProgressBar: View {
                 backgroundColor: Color = .gray.opacity(0.2),
                 lineWidth: CGFloat = 8,
                 lineCap: CGLineCap = .round,
-                animationType: ProgressBarAnimationType = .simple(duration: 1),
+                animationType: EasyProgressBarAnimationType = .simple(duration: 1),
                 foregroundGradient: [Color]? = nil) {
         self._progress = progress
         self.barColor = barColor

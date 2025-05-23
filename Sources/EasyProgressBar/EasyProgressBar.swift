@@ -20,7 +20,7 @@ public struct EasyProgressBar<Content: View>: View {
     private(set) var backgroundColor: Color = .gray.opacity(0.2)
     private(set) var lineWidth: CGFloat = 8
     private(set) var lineCap: CGLineCap = .round
-    private(set) var animationType: ProgressBarAnimationType = .simple(duration: 1)
+    private(set) var animationType: EasyProgressBarAnimationType = .simple(duration: 1)
     private(set) var foregroundGradient: [Color]? = nil
     
     // Arc-specific
@@ -136,7 +136,7 @@ extension EasyProgressBar {
         then({ $0.lineCap = lineCap })
     }
     
-    public func animationType(_ animationType: ProgressBarAnimationType) -> EasyProgressBar {
+    public func animationType(_ animationType: EasyProgressBarAnimationType) -> EasyProgressBar {
         then({ $0.animationType = animationType })
     }
     
